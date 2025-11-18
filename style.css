@@ -241,11 +241,9 @@
         form{
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             width: 100%;
             max-height: 60vh;
-            padding-right: 5px;
             overflow-y:scroll;
             
         }
@@ -290,7 +288,7 @@
         align-items: center;
        
         width: 45vh;
-        background-color: #2e7d32;
+        background-color:azure;
         border-radius: 20px;
         padding: 10px;
         gap: 10px;
@@ -312,7 +310,7 @@
         align-items: center;
         padding: 20px;
         width: 80%;
-        background-color:#3DB5FF;
+        background-color:#45a049;
         border-radius: 20px;
        }
        .nam{

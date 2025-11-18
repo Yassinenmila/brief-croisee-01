@@ -1,13 +1,17 @@
-const sidelist = [];
 const unwork = document.querySelector("#un-staff");
 const newstf = document.querySelector("#add-staff");
-const add = document.querySelector("#btn");
+const add = document.querySelector(".btn");
+const sidelist = [];
+const conference=[];
+const security=[];
+const personel=[];
+const archive=[];
 
 newstf.addEventListener("click", () => {
     const popup = document.createElement('div');
     popup.classList.add('popup');
     popup.innerHTML = `
-    
+
     <div class="popup-cont">
             <h1>New Worker</h1>
             <div></div>
@@ -51,4 +55,7 @@ newstf.addEventListener("click", () => {
     document.querySelector("#close").addEventListener("click", () => {
         popup.remove();
     })
+})
+add.addEventListener("click",()=>{
+
 })
