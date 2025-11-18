@@ -251,30 +251,29 @@
             display:flex;
             justify-content: center;
             flex-direction: column;
-            width:100% ;
-            padding-top: 10px; 
+            width:90% ;
+            padding: 20px; 
             
             
         }
         .inputs input{
             display: flex;
-            width: 80%;
+            width: 93%;
             height: 40px;
+            padding: 10px;
             padding-left: 20px;
-            border-radius: 20px;
-        }
-        .inputs select{
-            width:87%
+            /* border-radius: 20px; */
         }
         .inputs label{
             padding-left:20px;
             padding-bottom: 15px;
         }
         .inputs select{
-            width: 87%;
-            height: 40px;
+            width:100%;
+            padding: 10px;
+            height: 60px;
             padding-left: 20px;
-            border-radius: 20px;
+            /* border-radius: 20px; */
         }
         .btn-s{
             display: flex;
@@ -286,7 +285,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-       
         width: 45vh;
         background-color:azure;
         border-radius: 20px;
@@ -318,4 +316,19 @@
        }
        .nam h2{
         margin: 6px;
+       }
+       .exper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+        width:90% ;
+       }
+       .exper input{
+        padding: 20px;
+        font-size: 15px;
+        
+       }
+       .exper label{
+        padding:20px;
        }
