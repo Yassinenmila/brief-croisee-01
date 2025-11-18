@@ -283,9 +283,9 @@
         }
        #un-staff{
         display: flex;
+        width: 100%;
         flex-direction: column;
         align-items: center;
-        width: 45vh;
         background-color:azure;
         border-radius: 20px;
         padding: 10px;
@@ -295,8 +295,8 @@
         overflow-y: auto;
        }
        .img img{
-        width: 70px;
-        height:70px;
+        width: 50px;
+        height:50px;
         border-radius: 50px;
        }
        .img{
@@ -304,10 +304,10 @@
        }
        .profil{
         display: flex;
-        gap: 40px ;
+        gap: 10px ;
         align-items: center;
         padding: 20px;
-        width: 80%;
+        width: 70%;
         background-color:#45a049;
         border-radius: 20px;
        }
@@ -316,6 +316,7 @@
        }
        .nam h2{
         margin: 6px;
+        font-size: 20px;
        }
        .exper{
         display: flex;
@@ -327,7 +328,6 @@
        .exper input{
         padding: 20px;
         font-size: 15px;
-          
        }
        .exper label{
         padding:20px;
