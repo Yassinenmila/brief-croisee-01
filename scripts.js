@@ -43,6 +43,12 @@ newstf.addEventListener("click", () => {
                     <label for="tel">Tel :</label>
                     <input type="text" id="tel" placeholder="+2126XXXXXXXXX">
                 </div>
+                <div class="exper">
+                <label for="experience1">Date début experience :</label>
+                <input type="date" id="experience1">
+                <label for="experience2">Date fin experience :</label>
+                <input type="date" id="experience2">
+                </div>
             </form>
             <div class="btn-s">
                 <button id="submit" type="submit">Valider</button>
@@ -56,6 +62,4 @@ newstf.addEventListener("click", () => {
         popup.remove();
     })
 })
-add.addEventListener("click",()=>{
-
-})   
+  
