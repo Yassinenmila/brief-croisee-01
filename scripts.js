@@ -47,16 +47,16 @@ newstf.addEventListener("click", () => {
             </form>
             <div class="btn-s">
                 <button id="submit" type="submit">Valider</button>
-                <button id="close">close</button>
+                <button class="close">close</button>
             </div>
     </div>
     
     `;
     document.body.appendChild(formpopup);
-    formpopup.querySelector("#close").addEventListener("click", () => {
+    formpopup.querySelector(".close").addEventListener("click", () => {
         formpopup.remove();
     })
-    document.querySelector("#submit").addEventListener("click", () => {
+    formpopup.querySelector("#submit").addEventListener("click", () => {
         const nom = document.querySelector("#name").value;
         const role = document.querySelector("#role").value;
         const pic = document.querySelector("#photo").value;
@@ -91,16 +91,18 @@ newstf.addEventListener("click", () => {
                 </div>
         `;
         unwork.appendChild(nwk);
-        
-        unwork.addEventListener("click", (e) => {
-            const cart = e.target.closest('.profil');
-            const infopopup= document.createElement('div');
-            infopopup.classList.add('popup');
-            if (cart) {
-                const id = Number(cart.dataset.id);
-                const worker = workers.find(w => w.id === id);
-                infopopup.innerHTML = ``;
-                infopopup.innerHTML = `
+        formpopup.remove();
+    })
+})
+unwork.addEventListener("click", (e) => {
+    const cart = e.target.closest('.profil');
+    const infopopup = document.createElement('div');
+    infopopup.classList.add('popup');
+    if (!cart) { return };
+    const id = Number(cart.dataset.id);
+    const worker = workers.find(w => w.id === id);
+    infopopup.innerHTML = ``;
+    infopopup.innerHTML = `
                 <div class="popup-cont">
                     <div class="info-worker">
                         <img src="${worker.photo}" alt="worker picture">
@@ -111,17 +113,16 @@ newstf.addEventListener("click", () => {
                             <span><strong>Telephone :<strong> ${worker.tel}</span>
                         </div>
                     </div>
-                    <button id="close">close</button>
+                    <button class="close">close</button>
                 </div>
                 `;
-                document.body.appendChild(infopopup);
-                infopopup.querySelector("#close").addEventListener("click", () => {
-                    infopopup.remove();
-                })
-            }
-        })
-        formpopup.remove()
+    document.body.appendChild(infopopup);
+    infopopup.querySelector(".close").addEventListener("click", () => {
+        infopopup.remove();
     })
+
 })
+
+
 
 
