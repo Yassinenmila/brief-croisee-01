@@ -114,7 +114,7 @@ unwork.addEventListener("click", (e) => {
                         <div class="show">
                             <span><strong>Role :</strong> ${worker.role}</span>
                             <span><strong>Email :</strong> ${worker.email}</span>
-                            <span><strong>Telephone :<strong> ${worker.tel}</span>
+                            <span><strong>Telephone :</strong> ${worker.tel}</span>
                         </div>
                     </div>
                     <button class="close">close</button>
@@ -149,7 +149,7 @@ function aff() {
     });
 }
 conf.addEventListener("click", () => {
-    const data = localStorage.getItem("workers");
+    const data = JSON.parse(localStorage.getItem("workers"))||[];
     if (data.length === 0) {
         alert("aucun employer enregistrer !!")
     } else {
@@ -183,6 +183,44 @@ conf.addEventListener("click", () => {
         addpopup.querySelector(".close").addEventListener("click", () => {
             addpopup.remove();
         })
+    }
+})
+res.addEventListener("click", ()=>{
+    const data =JSON.parse(localStorage.getItem("workers"))||[];
+    if(data.some(d=>d.role=== "Réceptionniste")){
+        const filt = data.filter((d)=>d.role==="Réceptionniste");
+        const addpopup = document.createElement('div');
+        addpopup.classList.add('popup');
+        addpopup.innerHTML=`
+            <div class="popup-cont">
+                <h1> workers allowed</h1>
+                <div id="employ"></div>
+                <button class="close">close</button>
+            </div>
+        `;
+        document.body.appendChild(addpopup);
+        filt.forEach(ele => {
+        const wk = document.createElement('div');
+        wk.classList.add('profil');
+        wk.dataset.id = ele.id;
+        wk.dataset.role = ele.role;
+
+        wk.innerHTML = `
+        <div class="img">
+                    <img src="${ele.photo}">
+                </div>
+                <div class="nam">
+                    <h2>${ele.nom}</h2>
+                    <span>${ele.role}</span>
+                </div>
+        `;
+        document.querySelector("#employ").appendChild(wk);
+    });
+        addpopup.querySelector(".close").addEventListener("click", () => {
+            addpopup.remove();
+        })
+    }else{
+        alert("no worker allowed here !!");
     }
 })
 
