@@ -1,16 +1,15 @@
 const unwork = document.querySelector("#un-staff");
 const newstf = document.querySelector("#add-staff");
 const add = document.querySelector(".btn");
-const workers =[];
+const workers = [];
 
 newstf.addEventListener("click", () => {
-    const popup = document.createElement('div');
-    popup.classList.add('popup');
-    popup.innerHTML = `
+    const formpopup = document.createElement('div');
+    formpopup.classList.add('popup');
+    formpopup.innerHTML = `
 
     <div class="popup-cont">
             <h1>New Worker</h1>
-            <div></div>
             <form>
             <div class="inputs">
             <label for="name">Nom :</label>
@@ -53,36 +52,36 @@ newstf.addEventListener("click", () => {
     </div>
     
     `;
-    document.body.appendChild(popup);
-    document.querySelector("#close").addEventListener("click", () => {
-        popup.remove();
+    document.body.appendChild(formpopup);
+    formpopup.querySelector("#close").addEventListener("click", () => {
+        formpopup.remove();
     })
-    document.querySelector("#submit").addEventListener("click", ()=>{
-        const nom =document.querySelector("#name").value;
+    document.querySelector("#submit").addEventListener("click", () => {
+        const nom = document.querySelector("#name").value;
         const role = document.querySelector("#role").value;
         const pic = document.querySelector("#photo").value;
         const email = document.querySelector("#email").value;
         const tel = document.querySelector("#tel").value;
         const debut = document.querySelector("#date1").value;
         const fin = document.querySelector("#date2").value;
-        
+
         workers.push({
-            "id":Date.now(),
-            "nom":nom,
-            "role":role,
-            "photo":pic,
-            "email":email,
-            "tel":tel,
-            "experience":[{
-                "date_debut":debut,
-                "date_fin":fin
+            "id": Date.now(),
+            "nom": nom,
+            "role": role,
+            "photo": pic,
+            "email": email,
+            "tel": tel,
+            "experience": [{
+                "date_debut": debut,
+                "date_fin": fin
             }]
 
         })
         const nwk = document.createElement('div');
         nwk.classList.add('profil');
-        nwk.dataset.id=workers[workers.length-1].id;
-        nwk.innerHTML=`
+        nwk.dataset.id = workers[workers.length - 1].id;
+        nwk.innerHTML = `
         <div class="img">
                     <img src="${pic}">
                 </div>
@@ -92,18 +91,37 @@ newstf.addEventListener("click", () => {
                 </div>
         `;
         unwork.appendChild(nwk);
-        const profil = document.querySelector(".profil");
-        profil.addEventListener("click",(e)=>{
+        
+        unwork.addEventListener("click", (e) => {
             const cart = e.target.closest('.profil');
-            if(cart){
+            const infopopup= document.createElement('div');
+            infopopup.classList.add('popup');
+            if (cart) {
                 const id = Number(cart.dataset.id);
-                const worker= workers.find(w=>w.id===id);
-                console.log(worker);
+                const worker = workers.find(w => w.id === id);
+                infopopup.innerHTML = ``;
+                infopopup.innerHTML = `
+                <div class="popup-cont">
+                    <div class="info-worker">
+                        <img src="${worker.photo}" alt="worker picture">
+                        <h4>${worker.nom}</h4>
+                        <div class="show">
+                            <span><strong>Role :</strong> ${worker.role}</span>
+                            <span><strong>Email :</strong> ${worker.email}</span>
+                            <span><strong>Telephone :<strong> ${worker.tel}</span>
+                        </div>
+                    </div>
+                    <button id="close">close</button>
+                </div>
+                `;
+                document.body.appendChild(infopopup);
+                infopopup.querySelector("#close").addEventListener("click", () => {
+                    infopopup.remove();
+                })
             }
         })
-        popup.remove()
+        formpopup.remove()
     })
 })
 
 
-                

@@ -335,3 +335,23 @@
        .exper label{
         padding:20px;
        }
+       .info-worker{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+       }
+       .into-worker img{
+        width:50px;
+        height:50px;
+        border-radius: 50px;
+       }
+       .show {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 24px;
+        gap: 20px;
+       }
