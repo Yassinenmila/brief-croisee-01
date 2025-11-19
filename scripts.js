@@ -1,6 +1,12 @@
 const unwork = document.querySelector("#un-staff");
 const newstf = document.querySelector("#add-staff");
 const add = document.querySelector(".btn");
+const conf = document.querySelector("#conference");
+const res = document.querySelector("#reception");
+const arch = document.querySelector("#archive");
+const sct = document.querySelector("#securite");
+const pers = document.querySelector("#personnel");
+const srv = document.querySelector("#serveur");
 const workers = [];
 
 newstf.addEventListener("click", () => {
@@ -57,13 +63,13 @@ newstf.addEventListener("click", () => {
         formpopup.remove();
     })
     formpopup.querySelector("#submit").addEventListener("click", () => {
-        const nom = document.querySelector("#name").value;
-        const role = document.querySelector("#role").value;
-        const pic = document.querySelector("#photo").value;
-        const email = document.querySelector("#email").value;
-        const tel = document.querySelector("#tel").value;
-        const debut = document.querySelector("#date1").value;
-        const fin = document.querySelector("#date2").value;
+        const nom = formpopup.querySelector("#name").value;
+        const role = formpopup.querySelector("#role").value;
+        const pic = formpopup.querySelector("#photo").value;
+        const email = formpopup.querySelector("#email").value;
+        const tel = formpopup.querySelector("#tel").value;
+        const debut = formpopup.querySelector("#date1").value;
+        const fin = formpopup.querySelector("#date2").value;
 
         workers.push({
             "id": Date.now(),
@@ -81,6 +87,7 @@ newstf.addEventListener("click", () => {
         const nwk = document.createElement('div');
         nwk.classList.add('profil');
         nwk.dataset.id = workers[workers.length - 1].id;
+        nwk.dataset.role=workers[workers.length - 1].role;
         nwk.innerHTML = `
         <div class="img">
                     <img src="${pic}">
@@ -120,6 +127,11 @@ unwork.addEventListener("click", (e) => {
     infopopup.querySelector(".close").addEventListener("click", () => {
         infopopup.remove();
     })
+
+})
+conf.addEventListener("click", ()=>{
+    const addpopup = createElement('div');
+    addpopup.classList.add('popup');
 
 })
 
