@@ -127,15 +127,17 @@
 
         .btn {
             display: flex;
-            width: 40px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             justify-content: center;
             align-items: center;
             color: white;
             cursor: pointer;
             text-align: center;
             border: none;
+            border-radius: 40px;
             background-color: #0A7FFF;
+            opacity: 0.7;
         }
         .btn:hover {
             background-color: #3DB5FF;
@@ -164,10 +166,6 @@
             display: flex;
 
         }
-        .btnn {
-            padding:0;
-            margin: 0;
-        }
         .container h1{
             text-align: center;
             font-size: 25px;
@@ -186,17 +184,23 @@
         #add-staff:active{
             background-color: #2e7d32;
         }
-        #close {
+        .close {
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 10px;
             font-size: 25px;
-            background-color: red;
+            background-color: #E74C3C;
             color:white;
             border:none;
             border-radius: 5px;
+        }
+        .close:hover{
+            background-color: #FF4C4C;
+        }
+        .close:active{
+            background-color:#C0392B;
         }
         #submit{
             font-size: 25px;
