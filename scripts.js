@@ -150,14 +150,39 @@ function aff() {
 }
 conf.addEventListener("click", () => {
     const data = localStorage.getItem("workers");
-    if (data.some(d => d.length === 0)) {
+    if (data.length === 0) {
         alert("aucun employer enregistrer !!")
     } else {
         const addpopup = document.createElement('div');
         addpopup.classList.add('popup');
-        innerHTML=`
-            <div class="popup-cont"></div>
+        addpopup.innerHTML=`
+            <div class="popup-cont">
+                <h1> workers allowed</h1>
+                <div id="employ"></div>
+                <button class="close">close</button>
+            </div>
         `;
+        document.body.appendChild(addpopup);
+        data.forEach(ele => {
+        const wk = document.createElement('div');
+        wk.classList.add('profil');
+        wk.dataset.id = ele.id;
+        wk.dataset.role = ele.role;
+
+        wk.innerHTML = `
+        <div class="img">
+                    <img src="${ele.photo}">
+                </div>
+                <div class="nam">
+                    <h2>${ele.nom}</h2>
+                    <span>${ele.role}</span>
+                </div>
+        `;
+        document.querySelector("#employ").appendChild(wk);
+    });
+        addpopup.querySelector(".close").addEventListener("click", () => {
+            addpopup.remove();
+        })
     }
 })
 
