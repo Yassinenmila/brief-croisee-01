@@ -7,8 +7,16 @@ const arch = document.querySelector("#archive");
 const sct = document.querySelector("#securite");
 const pers = document.querySelector("#personnel");
 const srv = document.querySelector("#serveur");
-const workers = [];
+const workers = JSON.parse(localStorage.getItem("workers")) || [];
+if (workers.length === 0) {
+    unwork.innerHTML = `
+    <p style="color:gray" id="message">No Workers Added</p>
+    `;
+} else {
+    aff();
+}
 
+// ajoutement des workers dans un tableau des object contenent des information
 newstf.addEventListener("click", () => {
     const formpopup = document.createElement('div');
     formpopup.classList.add('popup');
@@ -84,23 +92,12 @@ newstf.addEventListener("click", () => {
             }]
 
         })
-        const nwk = document.createElement('div');
-        nwk.classList.add('profil');
-        nwk.dataset.id = workers[workers.length - 1].id;
-        nwk.dataset.role=workers[workers.length - 1].role;
-        nwk.innerHTML = `
-        <div class="img">
-                    <img src="${pic}">
-                </div>
-                <div class="nam">
-                    <h2>${nom}</h2>
-                    <span>${role}</span>
-                </div>
-        `;
-        unwork.appendChild(nwk);
+        localStorage.setItem("workers", JSON.stringify(workers));
+        aff();
         formpopup.remove();
     })
 })
+// info afficher d'un worker clicker dessus en format de popup
 unwork.addEventListener("click", (e) => {
     const cart = e.target.closest('.profil');
     const infopopup = document.createElement('div');
@@ -129,10 +126,39 @@ unwork.addEventListener("click", (e) => {
     })
 
 })
-conf.addEventListener("click", ()=>{
-    const addpopup = createElement('div');
-    addpopup.classList.add('popup');
+function aff() {
+    const msg = document.querySelector("#message");
+    if (msg) { msg.remove() };
+    unwork.innerHTML = "";
+    workers.forEach(ele => {
+        const wk = document.createElement('div');
+        wk.classList.add('profil');
+        wk.dataset.id = ele.id;
+        wk.dataset.role = ele.role;
 
+        wk.innerHTML = `
+        <div class="img">
+                    <img src="${ele.photo}">
+                </div>
+                <div class="nam">
+                    <h2>${ele.nom}</h2>
+                    <span>${ele.role}</span>
+                </div>
+        `;
+        unwork.appendChild(wk);
+    });
+}
+conf.addEventListener("click", () => {
+    const data = localStorage.getItem("workers");
+    if (data.some(d => d.length === 0)) {
+        alert("aucun employer enregistrer !!")
+    } else {
+        const addpopup = document.createElement('div');
+        addpopup.classList.add('popup');
+        innerHTML=`
+            <div class="popup-cont"></div>
+        `;
+    }
 })
 
 
