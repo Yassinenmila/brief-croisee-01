@@ -148,7 +148,16 @@ function aff() {
         unwork.appendChild(wk);
     });
 }
+conf.addEventListener("click",()=>{
+    const data = JSON.parse(localStorage.getItem("workers")) || [];
+    if(data.some(d=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage")){
+        const filt =data.filter((d)=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage");
+        afichages(filt);
 
+    }else{
+        alert("no worker allowed here !!");
+    }
+})
 res.addEventListener("click", () => {
     const data = JSON.parse(localStorage.getItem("workers")) || [];
     if (data.length!==0) {
@@ -185,6 +194,15 @@ pers.addEventListener("click",()=>{
         alert("no worker allowed here !!");
     }
 })
+srv.addEventListener("click",()=>{
+    const data = JSON.parse(localStorage.getItem("workers")) || [];
+    if(data.some(d=>d.role==="Techniciens"|| d.role==="Manager")){
+        const filt = data.filter((d)=>d.role==="Techniciens"|| d.role==="Manager")
+        afichages(filt);
+    }else{
+        alert("no worker allowed here !!");
+    }
+})
 
 
 
@@ -213,6 +231,7 @@ function afichages(filt){
                     <h2>${ele.nom}</h2>
                     <span>${ele.role}</span>
                 </div>
+                
         `;
             document.querySelector("#employ").appendChild(wk);
         });
@@ -220,3 +239,7 @@ function afichages(filt){
             addpopup.remove();
         })
 }
+/* <div class="buttons">
+                    <button class="adding">+</button>
+                    <button class="remove">X</button>
+                </div> */
