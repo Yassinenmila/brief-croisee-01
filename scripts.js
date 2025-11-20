@@ -1,27 +1,7 @@
 const unwork = document.querySelector("#un-staff");
 const newstf = document.querySelector("#add-staff");
-const add = document.querySelector(".btn");
-const conf = document.querySelector("#conference");
-const res = document.querySelector("#reception");
-const arch = document.querySelector("#archive");
-const sct = document.querySelector("#securite");
-const pers = document.querySelector("#personnel");
-const srv = document.querySelector("#serveur");
 const workers = JSON.parse(localStorage.getItem("workers")) || [];
-const conference= document.querySelector("#worker-conf");
-const reception = document.querySelector("#worker-res");
-const archive= document.querySelector("#worker-arch");
-const securite= document.querySelector("#worker-scr");
-const personnel = document.querySelector("#worker-pers");
-const serveur = document.querySelector("#serveur");
-const salconf=[];
-const salres=[];
-const salarch=[];
-const salsct=[];
-const salpers=[];
-const salsrv=[];
-
-if (workers.length === 0) {
+if (!workers.some(w => w.loc === "free")) {
     unwork.innerHTML = `
     <p style="color:gray" id="message">No Workers Added</p>
     `;
@@ -103,7 +83,7 @@ newstf.addEventListener("click", () => {
                 "date_debut": debut,
                 "date_fin": fin
             }],
-            "loc":"free",
+            "loc": "free",
         })
         localStorage.setItem("workers", JSON.stringify(workers));
         aff();
@@ -140,15 +120,16 @@ unwork.addEventListener("click", (e) => {
 
 })
 function aff() {
+    const filtrer = workers.filter((w) => w.loc === "free")
     const msg = document.querySelector("#message");
     if (msg) { msg.remove() };
     unwork.innerHTML = "";
-    workers.forEach(ele => {
+    filtrer.forEach(ele => {
         const wk = document.createElement('div');
         wk.classList.add('profil');
         wk.dataset.id = ele.id;
         wk.dataset.role = ele.role;
-        wk.dataset.location="";
+        wk.dataset.location = "";
         wk.innerHTML = `
         <div class="img">
                     <img src="${ele.photo}">
@@ -161,93 +142,25 @@ function aff() {
         unwork.appendChild(wk);
     });
 }
-conf.addEventListener("click",()=>{
-    const data = JSON.parse(localStorage.getItem("workers")) || [];
-    if(data.some(d=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage")){
-        const filt =data.filter((d)=>(d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage" || d.role==="Autres")&& d.loc==="free");
-        afichages(filt);
-        document.querySelector("#employ").addEventListener("click",(e)=>{
-        const Btns = e.target.classList.contains("adding");
-            if (Btns) {
-                const cart = e.target.closest('.profil');
-                const Id = cart.dataset.id;
-                const ele = filt.find(d=>d.id==Id);
-                ele.loc="occupe";
-                salconf.push(ele);
-            }
-        })
-        
-    }else{
-        alert("no worker allowed here !!");
-    }
-    
-})
-res.addEventListener("click", () => {
-    const data = JSON.parse(localStorage.getItem("workers")) || [];
-    if (data.length!==0) {
-        const filt = data.filter((d) => d.role === "Réceptionniste"|| d.role==="Manager");
-        afichages(filt);
-    } else {
-        alert("no worker allowed here !!");
-    }
-})
-arch.addEventListener("click",()=>{
-    const data = JSON.parse(localStorage.getItem("workers")) || [];
-    if(data.some(d=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception")){
-        const filt = data.filter((d) => d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception");
-        afichages(filt);
-    } else {
-        alert("no worker allowed here !!");
-    }
-})
-sct.addEventListener("click",()=>{
-    const data = JSON.parse(localStorage.getItem("workers")) || [];
-    if(data.some(d=>d.role === "Menage"||d.role==="securite"|| d.role==="Manager")){
-        const filt = data.filter((d)=>d.role === "Menage"||d.role==="securite"|| d.role==="Manager")        
-        afichages(filt);
-    } else {
-        alert("no worker allowed here !!");
-    }
-})
-pers.addEventListener("click",()=>{
-    const data = JSON.parse(localStorage.getItem("workers")) || [];
-    if(data.some(d=>d.role==="Manager"|| d.role==="Menage")){
-        const filt=data.filter((d)=>d.role==="Manager"|| d.role==="Menage");
-        afichages(filt);
-    } else {
-        alert("no worker allowed here !!");
-    }
-})
-srv.addEventListener("click",()=>{
-    const data = JSON.parse(localStorage.getItem("workers")) || [];
-    if(data.some(d=>d.role==="Techniciens"|| d.role==="Manager")){
-        const filt = data.filter((d)=>d.role==="Techniciens"|| d.role==="Manager")
-        afichages(filt);
-    }else{
-        alert("no worker allowed here !!");
-    }
-})
-
-
-
-function afichages(filt){
+function afichages(filt, salle) {
     const addpopup = document.createElement('div');
-        addpopup.classList.add('popup');
-        addpopup.innerHTML = `
+    addpopup.classList.add('popup');
+    addpopup.innerHTML = `
             <div class="popup-cont">
-                <h1> workers allowed</h1>
+                <h1> workers allowed in ${salle} room</h1>
                 <div id="employ"></div>
                 <button class="close">close</button>
             </div>
         `;
-        document.body.appendChild(addpopup);
-        filt.forEach(ele => {
-            const wk = document.createElement('div');
-            wk.classList.add('profil');
-            wk.dataset.id = ele.id;
-            wk.dataset.role = ele.role;
+    document.body.appendChild(addpopup);
+    const trav = addpopup.querySelector("#employ")
+    filt.forEach(ele => {
+        const wk = document.createElement('div');
+        wk.classList.add('profil');
+        wk.dataset.id = ele.id;
+        wk.dataset.role = ele.role;
 
-            wk.innerHTML = `
+        wk.innerHTML = `
         <div class="img">
                     <img src="${ele.photo}">
                 </div>
@@ -257,10 +170,52 @@ function afichages(filt){
                 </div>
                 <button class="adding">+</button>   
         `;
-            document.querySelector("#employ").appendChild(wk);
-        });
-       
-        addpopup.querySelector(".close").addEventListener("click", () => {
-            addpopup.remove();
-        })
+        trav.appendChild(wk);
+    });
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("adding")) {
+            const card = e.target.closest('.profil');
+            const id = card.dataset.id;
+            const worker = workers.find(w => w.id == id);
+            worker.loc = salle;
+            localStorage.setItem("workers", JSON.stringify(workers));
+            aff();
+            const liste=document.querySelector(`#worker-${salle}`);
+            const w=document.createElement('div');
+            w.classList.add('wker');
+            w.dataset.id=id;
+            w.innerHTML=`
+            <img src="${worker.photo}" alt="${worker.nom}">
+            <button class="btnns">X</button>
+            `;
+            liste.appendChild(w);
+            e.target.closest(".popup").remove();
+        }
+
+    })
+    addpopup.querySelector(".close").addEventListener("click", () => {
+        addpopup.remove();
+    })
 }
+function rul(salle) {
+    const data = JSON.parse(localStorage.getItem("workers")) || [];
+    const rules = {
+        conference: ["Manager", "securite", "Techniciens", "Reception", "Menage", "Autres"],
+        reception: ["Reception", "Manager"],
+        archive: ["Manager", "securite", "Techniciens", "Reception"],
+        securite: ["Menage", "securite", "Manager"],
+        personnel: ["Manager", "Menage"],
+        serveur: ["Techniciens", "Manager"]
+    }
+    return data.filter(w => rules[salle].includes(w.role) && w.loc === "free")
+}
+document.addEventListener("click", (e) => {
+    const salle = e.target.dataset.salle;
+    if (!salle) return;
+    const filt = rul(salle);
+    if (filt.length === 0) {
+        alert("no workers allowed here !!");
+        return;
+    }
+    afichages(filt,salle);
+})
