@@ -225,6 +225,7 @@
             position: fixed;
             background-color: rgba(0,0,0,0.6);
             z-index: 9999;
+            animation: popups 0.3s ease forwards;
         }
         .popup-cont{
             display: flex;
@@ -314,6 +315,7 @@
         background-color:#45a049;
         border-radius: 20px;
         cursor: pointer;
+        box-shadow: 0px 4px 8px rgba(0,0,0,0.5);
        }
        .nam{
         width: 80%;
@@ -365,3 +367,24 @@
         gap: 10px;
         overflow-y: auto;
        }
+       .adding{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 40px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+       }
+       .adding:hover{
+        background-color: #0056D2;
+       }
+       .adding:active{
+        background-color: #003C99;
+       }
+@keyframes popups {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

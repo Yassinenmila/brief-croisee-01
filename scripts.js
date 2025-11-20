@@ -231,6 +231,7 @@ function afichages(filt){
                     <h2>${ele.nom}</h2>
                     <span>${ele.role}</span>
                 </div>
+                <button class="adding">+</button>
                 
         `;
             document.querySelector("#employ").appendChild(wk);
