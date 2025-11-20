@@ -151,12 +151,14 @@ function aff() {
 conf.addEventListener("click",()=>{
     const data = JSON.parse(localStorage.getItem("workers")) || [];
     if(data.some(d=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage")){
-        const filt =data.filter((d)=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage");
+        const filt =data.filter((d)=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage" || d.role==="Autres");
         afichages(filt);
-
+        
+        
     }else{
         alert("no worker allowed here !!");
     }
+    
 })
 res.addEventListener("click", () => {
     const data = JSON.parse(localStorage.getItem("workers")) || [];
@@ -231,16 +233,19 @@ function afichages(filt){
                     <h2>${ele.nom}</h2>
                     <span>${ele.role}</span>
                 </div>
-                <button class="adding">+</button>
-                
+                <button class="adding">+</button>   
         `;
             document.querySelector("#employ").appendChild(wk);
         });
+        addpopup.querySelector("#employ").addEventListener("click",(e)=>{
+        const Btns = e.target.classList.contains("adding");
+            if (Btns) {
+                const cart = e.target.closest('.profil');
+                const Id = cart.dataset.id;
+                console.log(filt.find(d=>d.id==Id));
+            }
+        })
         addpopup.querySelector(".close").addEventListener("click", () => {
             addpopup.remove();
         })
 }
-/* <div class="buttons">
-                    <button class="adding">+</button>
-                    <button class="remove">X</button>
-                </div> */
