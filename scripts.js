@@ -8,6 +8,19 @@ const sct = document.querySelector("#securite");
 const pers = document.querySelector("#personnel");
 const srv = document.querySelector("#serveur");
 const workers = JSON.parse(localStorage.getItem("workers")) || [];
+const conference= document.querySelector("#worker-conf");
+const reception = document.querySelector("#worker-res");
+const archive= document.querySelector("#worker-arch");
+const securite= document.querySelector("#worker-scr");
+const personnel = document.querySelector("#worker-pers");
+const serveur = document.querySelector("#serveur");
+const salconf=[];
+const salres=[];
+const salarch=[];
+const salsct=[];
+const salpers=[];
+const salsrv=[];
+
 if (workers.length === 0) {
     unwork.innerHTML = `
     <p style="color:gray" id="message">No Workers Added</p>
@@ -89,8 +102,8 @@ newstf.addEventListener("click", () => {
             "experience": [{
                 "date_debut": debut,
                 "date_fin": fin
-            }]
-
+            }],
+            "loc":"free",
         })
         localStorage.setItem("workers", JSON.stringify(workers));
         aff();
@@ -135,7 +148,7 @@ function aff() {
         wk.classList.add('profil');
         wk.dataset.id = ele.id;
         wk.dataset.role = ele.role;
-
+        wk.dataset.location="";
         wk.innerHTML = `
         <div class="img">
                     <img src="${ele.photo}">
@@ -151,9 +164,18 @@ function aff() {
 conf.addEventListener("click",()=>{
     const data = JSON.parse(localStorage.getItem("workers")) || [];
     if(data.some(d=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage")){
-        const filt =data.filter((d)=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage" || d.role==="Autres");
+        const filt =data.filter((d)=>(d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception"||d.role==="Menage" || d.role==="Autres")&& d.loc==="free");
         afichages(filt);
-        
+        document.querySelector("#employ").addEventListener("click",(e)=>{
+        const Btns = e.target.classList.contains("adding");
+            if (Btns) {
+                const cart = e.target.closest('.profil');
+                const Id = cart.dataset.id;
+                const ele = filt.find(d=>d.id==Id);
+                ele.loc="occupe";
+                salconf.push(ele);
+            }
+        })
         
     }else{
         alert("no worker allowed here !!");
@@ -237,14 +259,7 @@ function afichages(filt){
         `;
             document.querySelector("#employ").appendChild(wk);
         });
-        addpopup.querySelector("#employ").addEventListener("click",(e)=>{
-        const Btns = e.target.classList.contains("adding");
-            if (Btns) {
-                const cart = e.target.closest('.profil');
-                const Id = cart.dataset.id;
-                console.log(filt.find(d=>d.id==Id));
-            }
-        })
+       
         addpopup.querySelector(".close").addEventListener("click", () => {
             addpopup.remove();
         })
