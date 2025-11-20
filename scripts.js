@@ -33,9 +33,9 @@ newstf.addEventListener("click", () => {
                     <label for="role">Role :</label>
                     <select name="role" id="role">
                         <option value="Autres">Autres</option>
-                        <option value="Réceptionniste">Réceptionniste</option>
+                        <option value="Reception">Réceptionniste</option>
                         <option value="Techniciens">Techniciens IT</option>
-                        <option value="Agent">Agent de sécurité</option>
+                        <option value="securite">Agent de sécurité</option>
                         <option value="Manager">Manager</option>
                         <option value="Menage">Menage</option>
                     </select>
@@ -148,50 +148,50 @@ function aff() {
         unwork.appendChild(wk);
     });
 }
-conf.addEventListener("click", () => {
-    const data = JSON.parse(localStorage.getItem("workers"))||[];
-    if (data.length === 0) {
-        alert("aucun employer enregistrer !!")
-    } else {
-        const addpopup = document.createElement('div');
-        addpopup.classList.add('popup');
-        addpopup.innerHTML=`
-            <div class="popup-cont">
-                <h1> workers allowed</h1>
-                <div id="employ"></div>
-                <button class="close">close</button>
-            </div>
-        `;
-        document.body.appendChild(addpopup);
-        data.forEach(ele => {
-        const wk = document.createElement('div');
-        wk.classList.add('profil');
-        wk.dataset.id = ele.id;
-        wk.dataset.role = ele.role;
 
-        wk.innerHTML = `
-        <div class="img">
-                    <img src="${ele.photo}">
-                </div>
-                <div class="nam">
-                    <h2>${ele.nom}</h2>
-                    <span>${ele.role}</span>
-                </div>
-        `;
-        document.querySelector("#employ").appendChild(wk);
-    });
-        addpopup.querySelector(".close").addEventListener("click", () => {
-            addpopup.remove();
-        })
+res.addEventListener("click", () => {
+    const data = JSON.parse(localStorage.getItem("workers")) || [];
+    if (data.length!==0) {
+        const filt = data.filter((d) => d.role === "Réceptionniste"|| d.role==="Manager");
+        afichages(filt);
+    } else {
+        alert("no worker allowed here !!");
     }
 })
-res.addEventListener("click", ()=>{
-    const data =JSON.parse(localStorage.getItem("workers"))||[];
-    if(data.some(d=>d.role=== "Réceptionniste")){
-        const filt = data.filter((d)=>d.role==="Réceptionniste");
-        const addpopup = document.createElement('div');
+arch.addEventListener("click",()=>{
+    const data = JSON.parse(localStorage.getItem("workers")) || [];
+    if(data.some(d=>d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception")){
+        const filt = data.filter((d) => d.role ==="Manager"|| d.role ==="securite"||d.role==="Techniciens" || d.role==="Reception");
+        afichages(filt);
+    } else {
+        alert("no worker allowed here !!");
+    }
+})
+sct.addEventListener("click",()=>{
+    const data = JSON.parse(localStorage.getItem("workers")) || [];
+    if(data.some(d=>d.role === "Menage"||d.role==="securite"|| d.role==="Manager")){
+        const filt = data.filter((d)=>d.role === "Menage"||d.role==="securite"|| d.role==="Manager")        
+        afichages(filt);
+    } else {
+        alert("no worker allowed here !!");
+    }
+})
+pers.addEventListener("click",()=>{
+    const data = JSON.parse(localStorage.getItem("workers")) || [];
+    if(data.some(d=>d.role==="Manager"|| d.role==="Menage")){
+        const filt=data.filter((d)=>d.role==="Manager"|| d.role==="Menage");
+        afichages(filt);
+    } else {
+        alert("no worker allowed here !!");
+    }
+})
+
+
+
+function afichages(filt){
+    const addpopup = document.createElement('div');
         addpopup.classList.add('popup');
-        addpopup.innerHTML=`
+        addpopup.innerHTML = `
             <div class="popup-cont">
                 <h1> workers allowed</h1>
                 <div id="employ"></div>
@@ -200,12 +200,12 @@ res.addEventListener("click", ()=>{
         `;
         document.body.appendChild(addpopup);
         filt.forEach(ele => {
-        const wk = document.createElement('div');
-        wk.classList.add('profil');
-        wk.dataset.id = ele.id;
-        wk.dataset.role = ele.role;
+            const wk = document.createElement('div');
+            wk.classList.add('profil');
+            wk.dataset.id = ele.id;
+            wk.dataset.role = ele.role;
 
-        wk.innerHTML = `
+            wk.innerHTML = `
         <div class="img">
                     <img src="${ele.photo}">
                 </div>
@@ -214,16 +214,9 @@ res.addEventListener("click", ()=>{
                     <span>${ele.role}</span>
                 </div>
         `;
-        document.querySelector("#employ").appendChild(wk);
-    });
+            document.querySelector("#employ").appendChild(wk);
+        });
         addpopup.querySelector(".close").addEventListener("click", () => {
             addpopup.remove();
         })
-    }else{
-        alert("no worker allowed here !!");
-    }
-})
-
-
-
-
+}
