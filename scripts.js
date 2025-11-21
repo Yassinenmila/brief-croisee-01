@@ -1,12 +1,12 @@
 const unwork = document.querySelector("#un-staff");
 const newstf = document.querySelector("#add-staff");
 const workers = JSON.parse(localStorage.getItem("workers")) || [];
-const res=0;
-const conf=0;
-const pers=0;
-const sct=0;
-const arc=0;
-const srv=0;
+const reception=3;
+const conf=4;
+const pers=5;
+const sct=2;
+const arc=2;
+const srv=1;
 if (!workers.some(w => w.loc === "free")) {
     unwork.innerHTML = `
     <p style="color:gray" id="message">No Workers Added</p>
@@ -149,6 +149,7 @@ function aff() {
         unwork.appendChild(wk);
     });
 }
+
 function afichages(filt, salle) {
     const addpopup = document.createElement('div');
     addpopup.classList.add('popup');
@@ -188,6 +189,12 @@ function afichages(filt, salle) {
             localStorage.setItem("workers", JSON.stringify(workers));
             aff();
             const liste=document.querySelector(`#worker-${salle}`);
+            const count=liste.children.length;
+            const limit=parseInt(liste.dataset.limit);
+            if(count>=limit){
+                alert("room is full !!");
+                return;
+            }
             const w=document.createElement('div');
             w.classList.add('wker');
             w.dataset.id=id;
@@ -218,9 +225,9 @@ function rul(salle) {
     const rules = {
         conference: ["Manager", "securite", "Techniciens", "Reception", "Menage", "Autres"],
         reception: ["Reception", "Manager"],
-        archive: ["Manager", "securite", "Techniciens", "Reception"],
-        securite: ["Menage", "securite", "Manager"],
-        personnel: ["Manager", "Menage"],
+        archive: ["Manager", "Techniciens", "Reception"],
+        securite: ["Menage","Manager"],
+        personnel: ["Manager", "securite", "Techniciens", "Reception", "Menage", "Autres"],
         serveur: ["Techniciens", "Manager"]
     }
     return data.filter(w => rules[salle].includes(w.role) && w.loc === "free")
