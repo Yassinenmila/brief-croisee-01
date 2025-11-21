@@ -1,12 +1,19 @@
 const unwork = document.querySelector("#un-staff");
 const newstf = document.querySelector("#add-staff");
 const workers = JSON.parse(localStorage.getItem("workers")) || [];
+const res=0;
+const conf=0;
+const pers=0;
+const sct=0;
+const arc=0;
+const srv=0;
 if (!workers.some(w => w.loc === "free")) {
     unwork.innerHTML = `
     <p style="color:gray" id="message">No Workers Added</p>
     `;
 } else {
     aff();
+    organiser();
 }
 
 // ajoutement des workers dans un tableau des object contenent des information
@@ -188,10 +195,19 @@ function afichages(filt, salle) {
             <img src="${worker.photo}" alt="${worker.nom}">
             <button class="btnns">X</button>
             `;
-            liste.appendChild(w);
+            organiser();
             e.target.closest(".popup").remove();
         }
-
+        if(e.target.classList.contains("btnns")){
+            const card =e.target.closest('.wker');
+            const id = card.dataset.id;
+            const worker=workers.find(w=>w.id==id);
+            worker.loc="free";
+            localStorage.setItem("workers",JSON.stringify(workers));
+            card.remove();
+            aff();
+            organiser();
+        }
     })
     addpopup.querySelector(".close").addEventListener("click", () => {
         addpopup.remove();
@@ -219,3 +235,26 @@ document.addEventListener("click", (e) => {
     }
     afichages(filt,salle);
 })
+function organiser (){
+    const workers = JSON.parse(localStorage.getItem("workers"))||[];
+    const salle =["conference", "reception", "archive", "securite", "personnel", "serveur"];
+    salle.forEach(s=>{
+        const list = document.querySelector(`#worker-${s}`);
+        list.innerHTML="";
+    })
+    workers.forEach(ele => {
+        if(ele.loc!=="free"){
+            const list = document.querySelector(`#worker-${ele.loc}`)
+            if(!list)return;
+            const w = document.createElement('div');
+            w.classList.add('wker');
+            w.dataset.id = ele.id;
+            w.innerHTML = `
+                <img src="${ele.photo}" alt="${ele.nom}">
+                <button class="btnns">X</button>
+            `;
+            list.appendChild(w);
+        }
+    });
+
+}

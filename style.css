@@ -457,9 +457,16 @@
      height: 20px;
      justify-content: center;
      align-items: center;
-     background-color: tomato;
+     background-color: #E74C3C;
      border-radius: 20px;
      position: absolute;
      top: 0px;
      right: 0;
+     border:none;
+ }
+ .btnns:hover{
+    background-color: #FF4C4C;
+ }
+ .btnns:active{
+    background-color: #C0392B;
  }
