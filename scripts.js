@@ -12,54 +12,52 @@ if (!workers.some(w => w.loc === "free")) {
     <p style="color:gray" id="message">No Workers Added</p>
     `;
 } else {
+    workers.forEach(w=>w.loc="free");
+    localStorage.setItem("workers",JSON.stringify(workers))
     aff();
     organiser();
 }
 
 // ajoutement des workers dans un tableau des object contenent des information
-newstf.addEventListener("click", () => {
+newstf.addEventListener("click", (e) => {
+    e.preventDefault();
     const formpopup = document.createElement('div');
-    formpopup.classList.add('popup');
+    formpopup.classList.add('popup','formpopup');
     formpopup.innerHTML = `
 
     <div class="popup-cont">
             <h1>New Worker</h1>
             <form>
-            <div class="inputs">
-            <label for="name">Nom :</label>
-            <input type="text" id="name" placeholder="Entre Votre Nom">
-            </div>
                 <div class="inputs">
-                    <label for="role">Role :</label>
-                    <select name="role" id="role">
-                        <option value="Autres">Autres</option>
-                        <option value="Reception">Réceptionniste</option>
-                        <option value="Techniciens">Techniciens IT</option>
-                        <option value="securite">Agent de sécurité</option>
-                        <option value="Manager">Manager</option>
-                        <option value="Menage">Menage</option>
-                    </select>
+                <label for="name">Nom :</label>
+                <input type="text" id="name" placeholder="Entre Votre Nom">
                 </div>
-                <div class="inputs">
-                    <label for="photo">Photo :</label>
-                    <input type="url" id="photo" placeholder="Entre Votre Photo(URL)">
-                </div>
-                <div class="inputs">
-                    <label for="email">Email :</label>
-                    <input type="text" id="email" placeholder="Entrer Votre Email">
-                </div>
-                <div class="inputs">
-                    <label for="tel">Tel :</label>
-                    <input type="text" id="tel" placeholder="+2126XXXXXXXXX">
-                </div>
-                <div class="exper">
-                <label for="experience1">Date début experience :</label>
-                <input type="date" id="date1">
-                <label for="experience2">Date fin experience :</label>
-                <input type="date" id="date2">
-                </div>
+                    <div class="inputs">
+                        <label for="role">Role :</label>
+                        <select name="role" id="role">
+                            <option value="Autres">Autres</option>
+                            <option value="Reception">Réceptionniste</option>
+                            <option value="Techniciens">Techniciens IT</option>
+                            <option value="securite">Agent de sécurité</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Menage">Menage</option>
+                        </select>
+                    </div>
+                    <div class="inputs">
+                        <label for="photo">Photo :</label>
+                        <input type="url" id="photo" placeholder="Entre Votre Photo(URL)">
+                    </div>
+                    <div class="inputs">
+                        <label for="email">Email :</label>
+                        <input type="text" id="email" placeholder="Entrer Votre Email">
+                    </div>
+                    <div class="inputs">
+                        <label for="tel">Tel :</label>
+                        <input type="text" id="tel" placeholder="+2126XXXXXXXXX">
+                    </div>
             </form>
-            <div class="btn-s">
+            <div class="btn-s"> 
+                <button id="addexp" type="button">add</button>
                 <button id="submit" type="submit">Valider</button>
                 <button class="close">close</button>
             </div>
@@ -70,15 +68,39 @@ newstf.addEventListener("click", () => {
     formpopup.querySelector(".close").addEventListener("click", () => {
         formpopup.remove();
     })
-    formpopup.querySelector("#submit").addEventListener("click", () => {
+    const btnexp= formpopup.querySelector("#addexp");
+    btnexp.addEventListener("click",(e)=>{
+            e.preventDefault();
+            const exper = document.createElement('div');
+            exper.classList.add('exper');
+            exper.innerHTML=`
+                <label for="experience1">Date début experience :</label>
+                <input type="date" class="date1">
+                <label for="experience2">Date fin experience :</label>
+                <input type="date" class="date2">
+            `;
+            
+            const ctn = formpopup.querySelector("form");
+            ctn.appendChild(exper);
+        })
+    formpopup.querySelector("#submit").addEventListener("click", (e) => {
+        e.preventDefault();
         const nom = formpopup.querySelector("#name").value;
         const role = formpopup.querySelector("#role").value;
         const pic = formpopup.querySelector("#photo").value;
         const email = formpopup.querySelector("#email").value;
         const tel = formpopup.querySelector("#tel").value;
-        const debut = formpopup.querySelector("#date1").value;
-        const fin = formpopup.querySelector("#date2").value;
+        const exp=[];
 
+        const allexp=formpopup.querySelectorAll(".exper")
+
+        allexp.forEach((e)=>{
+            const d= e.querySelector(".date1").value;
+            const f= e.querySelector(".date2").value;
+            exp.push({d,f});
+        })
+        
+        
         workers.push({
             "id": Date.now(),
             "nom": nom,
@@ -86,10 +108,7 @@ newstf.addEventListener("click", () => {
             "photo": pic,
             "email": email,
             "tel": tel,
-            "experience": [{
-                "date_debut": debut,
-                "date_fin": fin
-            }],
+            "experience": exp,
             "loc": "free",
         })
         localStorage.setItem("workers", JSON.stringify(workers));
@@ -234,7 +253,7 @@ function organiser (){
 }
 document.addEventListener("click", (e) => {
 
-    // Ajouter un worker à une salle
+    
     if (e.target.classList.contains("adding")) {
         const card = e.target.closest('.profil');
         const id = card.dataset.id;
@@ -244,18 +263,12 @@ document.addEventListener("click", (e) => {
         const liste = document.querySelector(`#worker-${salle}`);
         const limit = parseInt(liste.dataset.limit);
         const count = liste.children.length;
-
-        // Vérifier la limite d'abord
         if (count >= limit) {
             alert("Room is full !");
             return;
         }
-
-        // Mise à jour worker
         worker.loc = salle;
         localStorage.setItem("workers", JSON.stringify(workers));
-
-        // Mise à jour de l'affichage
         organiser();
         aff();
 
@@ -277,3 +290,10 @@ document.addEventListener("click", (e) => {
         aff();
     }
 });
+// document.querySelector("#reset").addEventListener("click", () => {
+//     workers.forEach(w => w.loc = "free");
+//     localStorage.setItem("workers", JSON.stringify(workers));
+//     organiser();
+//     aff();
+//     alert("Tous les workers sont maintenant FREE !");
+// });
