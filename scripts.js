@@ -153,6 +153,7 @@ function aff() {
 function afichages(filt, salle) {
     const addpopup = document.createElement('div');
     addpopup.classList.add('popup');
+    addpopup.dataset.salle=salle;
     addpopup.innerHTML = `
             <div class="popup-cont">
                 <h1> workers allowed in ${salle} room</h1>
@@ -180,42 +181,8 @@ function afichages(filt, salle) {
         `;
         trav.appendChild(wk);
     });
-    document.addEventListener("click", (e) => {
-        if (e.target.classList.contains("adding")) {
-            const card = e.target.closest('.profil');
-            const id = card.dataset.id;
-            const worker = workers.find(w => w.id == id);
-            worker.loc = salle;
-            localStorage.setItem("workers", JSON.stringify(workers));
-            aff();
-            const liste=document.querySelector(`#worker-${salle}`);
-            const count=liste.children.length;
-            const limit=parseInt(liste.dataset.limit);
-            if(count>=limit){
-                alert("room is full !!");
-                return;
-            }
-            const w=document.createElement('div');
-            w.classList.add('wker');
-            w.dataset.id=id;
-            w.innerHTML=`
-            <img src="${worker.photo}" alt="${worker.nom}">
-            <button class="btnns">X</button>
-            `;
-            organiser();
-            e.target.closest(".popup").remove();
-        }
-        if(e.target.classList.contains("btnns")){
-            const card =e.target.closest('.wker');
-            const id = card.dataset.id;
-            const worker=workers.find(w=>w.id==id);
-            worker.loc="free";
-            localStorage.setItem("workers",JSON.stringify(workers));
-            card.remove();
-            aff();
-            organiser();
-        }
-    })
+        aff();
+        organiser(); 
     addpopup.querySelector(".close").addEventListener("click", () => {
         addpopup.remove();
     })
@@ -265,3 +232,48 @@ function organiser (){
     });
 
 }
+document.addEventListener("click", (e) => {
+
+    // Ajouter un worker à une salle
+    if (e.target.classList.contains("adding")) {
+        const card = e.target.closest('.profil');
+        const id = card.dataset.id;
+        const salle = card.closest('.popup').dataset.salle; // Salle stockée dans popup
+        const worker = workers.find(w => w.id == id);
+
+        const liste = document.querySelector(`#worker-${salle}`);
+        const limit = parseInt(liste.dataset.limit);
+        const count = liste.children.length;
+
+        // Vérifier la limite d'abord
+        if (count >= limit) {
+            alert("Room is full !");
+            return;
+        }
+
+        // Mise à jour worker
+        worker.loc = salle;
+        localStorage.setItem("workers", JSON.stringify(workers));
+
+        // Mise à jour de l'affichage
+        organiser();
+        aff();
+
+        // Fermer popup
+        e.target.closest(".popup").remove();
+    }
+
+    // Supprimer un worker d’une salle
+    if (e.target.classList.contains("btnns")) {
+        const card = e.target.closest('.wker');
+        const id = card.dataset.id;
+        const worker = workers.find(w => w.id == id);
+
+        worker.loc = "free";
+        localStorage.setItem("workers", JSON.stringify(workers));
+
+        card.remove();
+        organiser();
+        aff();
+    }
+});
