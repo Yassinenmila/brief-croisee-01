@@ -157,7 +157,7 @@ unwork.addEventListener("click", (e) => {
     const worker = workers.find(w => w.id === id);
     infopopup.innerHTML = ``;
     infopopup.innerHTML = `
-                <div class="popup-cont">
+                <div class="popup-cont">  
                     <div class="info-worker">
                         <img src="${worker.photo}" alt="worker picture">
                         <h4>${worker.nom}</h4>
