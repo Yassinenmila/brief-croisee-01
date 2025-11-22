@@ -32,16 +32,10 @@
 
  .plan {
      display: grid;
-     grid-template-columns: repeat(11, minmax(50px, 1fr));
-     grid-template-rows: repeat(8, minmax(50px, 1fr));
-     background-image: url("./images/background.jpg");
-     background-size: cover;
-     background-repeat: no-repeat;
+     grid-template-columns: repeat(11, minmax(30px, 1fr));
+     grid-template-rows: repeat(8, minmax(30px, 1fr));
+     background-color: #f5f3f0;
      border: solid black;
-     height: auto;
-     width: 100%;
-     max-width: 1000px;
-     min-height: 80vh;
      border-radius: 15px;
  }
 
@@ -125,6 +119,8 @@
 
  .container {
      justify-content: space-around;
+     height: auto;
+     width: auto;
  }
 
  .btn {
@@ -332,8 +328,8 @@
  }
 
  .img img {
-     width: 50px;
-     height: 50px;
+     width: 10vw;
+     height: auto;
      border-radius: 50px;
  }
 
@@ -345,9 +341,8 @@
      display: flex;
      gap: 10px;
      align-items: center;
-     padding: 20px;
+     padding: 15px;
      width: 70%;
-     background-color: #45a049;
      border-radius: 20px;
      cursor: pointer;
      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
@@ -359,7 +354,7 @@
 
  .nam h2 {
      margin: 6px;
-     font-size: 20px;
+     font-size: 17px;
  }
 
  .exper {
@@ -445,8 +440,8 @@
  .wker {
      position: relative;
      display: flex;
-     width: 60px;
-     height: 60px;
+     width: 10vw;
+     height: 60vw;
      justify-content: center;
      align-items: center;
      background-color:beige;
@@ -487,4 +482,9 @@
  }
  #addexp:active{
     background-color: #003C99;
+ }
+ @media (max-width:1279px) {
+    body{
+        background-color: #003C99;
+    }
  }

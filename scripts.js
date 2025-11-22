@@ -12,8 +12,10 @@ if (!workers.some(w => w.loc === "free")) {
     <p style="color:gray" id="message">No Workers Added</p>
     `;
 } else {
-    workers.forEach(w=>w.loc="free");
-    localStorage.setItem("workers",JSON.stringify(workers))
+    // if(!workers.every(w=>w.loc==="free")){
+    //     workers.forEach(w=>w.loc="free");
+    //     localStorage.setItem("workers",JSON.stringify(workers))
+    // }
     aff();
     organiser();
 }
@@ -91,14 +93,43 @@ newstf.addEventListener("click", (e) => {
         const email = formpopup.querySelector("#email").value;
         const tel = formpopup.querySelector("#tel").value;
         const exp=[];
+        const verfyemail= /^[\w.-]+@[\w.-]+\.\w{2,}$/;
+        const telverfy=/^0[5-7]\d{8}$/;
+        const imgverfy=/(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))/i;
+
+        if(!nom || !role || !pic || !email || !tel){
+            alert("you have to fill all the form !!");
+            return;
+        }
+
+        if(!verfyemail.test(email)){
+            alert("email invalide !!!");
+            return;
+        }
+        if(!telverfy.test(tel)){
+            alert("phone number invalide !!!");
+            return;
+        }
+
+        if(!imgverfy.test(pic)){
+            alert("picture invalide !!!");
+            return;
+        }
 
         const allexp=formpopup.querySelectorAll(".exper")
-
-        allexp.forEach((e)=>{
+        for (let e of allexp) {
             const d= e.querySelector(".date1").value;
             const f= e.querySelector(".date2").value;
-            exp.push({d,f});
-        })
+            if(!d||!f){
+                alert("experiences invalide !!")
+                return;
+            }
+            if(new Date(f)<new Date(d)){
+                alert("date invalide !!");
+                return;
+            }
+            exp.push({d,f})
+        }
         
         
         workers.push({
