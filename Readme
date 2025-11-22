@@ -1,0 +1,120 @@
+    WorkSphere – Gestion interactive du personnel
+
+WorkSphere est une application web innovante permettant la gestion visuelle et dynamique des employés d’une entreprise sur un plan d’étage interactif.
+Elle facilite l’organisation des équipes tout en tenant compte des rôles et des zones autorisées dans les locaux.
+
+    Objectifs du projet:
+
+Ajouter, déplacer et supprimer des employés via une interface graphique interactive.
+
+Respecter les contraintes liées aux rôles : chaque employé ne peut occuper que les zones qui lui sont autorisées.
+
+Offrir une expérience fluide, intuitive et responsive (Desktop, Tablette, Mobile).
+
+Centraliser la gestion du personnel et sa visualisation spatiale en une seule plateforme.
+
+Fonctionnalités principales
+Gestion des employés
+
+Liste latérale des employés non assignés (Unassigned Staff)
+
+    Ajout d’un employé via une modale avec :
+
+Nom
+
+Rôle
+
+Photo (URL)
+
+Email
+
+Téléphone
+
+Expériences professionnelles (formulaire dynamique)
+
+- Validation des champs avec REGEX
+
+- Vérification des dates d’expériences (début < fin)
+
+- Visualisation détaillée du profil d’un employé (photo grand format, infos complètes)
+
+- Gestion des zones (plan d’étage)
+
+- Le bâtiment contient 6 zones :
+
+Salle de conférence
+
+Réception
+
+Salle des serveurs
+
+Salle de sécurité
+
+Salle du personnel
+
+Salle d’archives
+
+    -Règles d’affectation par rôle
+Rôle	Zones autorisées
+Réceptionniste	Réception uniquement
+Technicien IT	Salle des serveurs uniquement
+Agent de sécurité	Salle de sécurité uniquement
+Manager	Accès à toutes les zones
+Agent de nettoyage	Partout sauf Salle d’archives
+Autres rôles	Zones libres seulement (hors zones restreintes)
+✖ Gestion des affectations
+
+Bouton “X” pour retirer un employé d’une zone → retourne dans Unassigned
+
+Bouton “+” dans chaque zone pour assigner un employé éligible
+
+Mise en évidence visuelle des zones obligatoires vides (rouge pâle)
+
+Limitation du nombre d’employés par zone
+
+    Responsive Design:
+
+Tailles d’écrans gérées :
+
+Mode	Appareil	Largeur
+Portrait	Grand écran	> 1280px
+Portrait	Petit écran	1024px – 1279px
+Portrait	Tablette	768px – 1023px
+Portrait	Mobile	≤ 767px
+Paysage	Mobile	768px – 1023px
+Paysage	Tablette	1024px – 1279px
+
+Utilisation de :
+
+Flexbox / Grid
+
+Styles modernes : formes arrondies, couleurs intuitives (vert/orange/rouge)
+
+Animations CSS fluides
+
+     Validation & Déploiement
+
+Validation du code HTML / CSS avec W3C Validator
+
+Déploiement sur GitHub Pages ou Vercel
+
+🛠 Méthodologie & gestion du projet
+
+Gestion des tâches avec Trello, Jira ou GitHub Projects
+
+Présentation finale démontrant toutes les fonctionnalités dynamiques
+
+    -Technologies utilisées
+
+HTML5
+
+CSS3
+
+JavaScript (Vanilla)
+
+LocalStorage (si utilisé pour la gestion des données)
+
+     - Auteur
+
+Projet réalisé par WorkSphere Front-End Web Development 
+    Yassine Nmila
