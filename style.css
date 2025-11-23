@@ -640,11 +640,6 @@
         height: 400px;
     }
 }
-@media (max-width: 768px) {
-    .plan {
-        max-width: 420px;
-    }
-}
 @media (max-width: 767px) {
     body {
         flex-direction: column-reverse;
