@@ -167,6 +167,20 @@
      border-radius: 5px;
      cursor: pointer;
  }
+ #reset{
+    padding:10px;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #FF4C4C;
+ }
+ #reset:hover{
+    background-color: #E74C3C;
+ }
+ #reset:active{
+    background-color: #C0392B;
+ }
 
  #add-staff:hover {
      background-color: #45a049;
@@ -216,7 +230,12 @@
  }
 
  .contain-btn {
+     width: 100%;
      padding: 30px;
+     gap: 40px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
  }
 
  .popup {

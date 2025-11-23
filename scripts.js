@@ -12,10 +12,6 @@ if (!workers.some(w => w.loc === "free")) {
     <p style="color:gray" id="message">No Workers Added</p>
     `;
 } else {
-    // if(!workers.every(w=>w.loc==="free")){
-    //     workers.forEach(w=>w.loc="free");
-    //     localStorage.setItem("workers",JSON.stringify(workers))
-    // }
     aff();
     organiser();
 }
@@ -349,10 +345,11 @@ document.addEventListener("click", (e) => {
         aff();
     }
 });
-// document.querySelector("#reset").addEventListener("click", () => {
-//     workers.forEach(w => w.loc = "free");
-//     localStorage.setItem("workers", JSON.stringify(workers));
-//     organiser();
-//     aff();
-//     alert("Tous les workers sont maintenant FREE !");
-// });
+document.querySelector("#reset").addEventListener("click", () => {
+    workers.forEach(w => w.loc = "free");
+    localStorage.setItem("workers", JSON.stringify(workers));
+    organiser();
+    aff();
+    alert("all the workers will be back unssigned !!!");
+    window.reload();
+});
