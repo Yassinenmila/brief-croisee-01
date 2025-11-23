@@ -258,7 +258,7 @@ function rul(salle) {
         conference: ["Manager", "securite", "Techniciens", "Reception", "Menage", "Autres"],
         reception: ["Reception", "Manager"],
         archive: ["Manager", "Techniciens", "Reception"],
-        securite: ["Menage","Manager"],
+        securite: ["Menage","Manager","securite"],
         personnel: ["Manager", "securite", "Techniciens", "Reception", "Menage", "Autres"],
         serveur: ["Techniciens", "Manager"]
     }
@@ -279,15 +279,20 @@ function organiser (){
     const salle =["conference", "reception", "archive", "securite", "personnel", "serveur"];
     salle.forEach(s=>{
         const list = document.querySelector(`#worker-${s}`);
-        const empty=document.querySelector(`.worker-${s}`)
+        
         list.innerHTML="";
         //  here is the problem
-        const vide = workers.some(w=>w.loc===s);
+    })
+    const svide = ["reception", "archive", "securite","serveur"];
+    svide.forEach(s=>{
+         const vide = workers.some(w=>w.loc===s);
+         const empty=document.querySelector(`.worker-${s}`);
         if(!vide){
             empty.style.backgroundColor="rgba(231, 76, 60, 0.5)";
         }else{
             empty.style.background="";
         }
+
     })
     workers.forEach(ele => {
         if(ele.loc!=="free"){
