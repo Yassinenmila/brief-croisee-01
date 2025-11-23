@@ -11,6 +11,7 @@
      align-items: center;
      height: 100vh;
      padding: 5px;
+     padding-top: 50px;
      gap: 7px;
      background-color: #e9e9e9;
      font-family: "Plus Jakarta Sans", sans-serif;
@@ -23,8 +24,12 @@
     background: #020024;
     background: linear-gradient(0deg,rgba(2, 0, 36, 0) 10%, rgb(255, 255, 255) 19%);
     width: 100%;
+    height: 50px;
     justify-content: center;
     align-items: center;
+ }
+ header h1{
+    font-size: 22px;
  }
 
  .side-bar {
@@ -483,7 +488,7 @@
      body {
          font-size: 40%;
          overflow-y: hidden;
-         height: 100vh;
+         height: auto;
 
      }
 
@@ -617,15 +622,19 @@
     body {
         flex-direction: column-reverse;
         gap: 10px;
+        overflow-y: auto;
     }
 
     .plan {
+        height: 400px;
         max-width: 700px;
+        grid-template-columns: repeat(11, 1fr);
+        grid-template-rows: repeat(8, 1fr);
     }
 
     .side-bar {
         width: 90vw;
-        height: auto;
+        height: 400px;
     }
 }
 @media (max-width: 768px) {
@@ -675,7 +684,7 @@
 
     .side-bar {
         width: 95vw;
-        height: auto;
+        height: 300px;
     }
     .profil h2{
         font-size: 12px;
