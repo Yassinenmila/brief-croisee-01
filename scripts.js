@@ -160,8 +160,8 @@ unwork.addEventListener("click", (e) => {
                 <div class="popup-cont">  
                     <div class="info-worker">
                         <img src="${worker.photo}" alt="worker picture">
-                        <h4>${worker.nom}</h4>
-                        <div class="show">
+                        <h3>${worker.nom}</h3>
+                        <div class="show" id="show">
                             <span><strong>Role :</strong> ${worker.role}</span>
                             <span><strong>Email :</strong> ${worker.email}</span>
                             <span><strong>Telephone :</strong> ${worker.tel}</span>
@@ -171,6 +171,22 @@ unwork.addEventListener("click", (e) => {
                 </div>
                 `;
     document.body.appendChild(infopopup);
+    if(worker.experience.length!==0){
+        const expaff= document.createElement("div");
+        expaff.id='exp';
+        worker.experience.forEach((e, index) => {
+        expaff.innerHTML += `
+            <span><strong>Experience ${index + 1}</strong></span>
+            <span>Date début : ${e.d}</span>
+            <span>Date fin : ${e.f}</span>
+        `;
+    });
+
+    document.querySelector("#show").appendChild(expaff);
+
+        document.querySelector("#show").appendChild(expaff);
+    }
+
     infopopup.querySelector(".close").addEventListener("click", () => {
         infopopup.remove();
     })
@@ -264,7 +280,15 @@ function organiser (){
     const salle =["conference", "reception", "archive", "securite", "personnel", "serveur"];
     salle.forEach(s=>{
         const list = document.querySelector(`#worker-${s}`);
+        const empty=document.querySelector(`.worker-${s}`)
         list.innerHTML="";
+        //  here is the problem
+        const vide = workers.some(w=>w.loc===s);
+        if(!vide){
+            empty.style.backgroundColor="rgba(231, 76, 60, 0.5)";
+        }else{
+            empty.style.background="";
+        }
     })
     workers.forEach(ele => {
         if(ele.loc!=="free"){
