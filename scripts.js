@@ -93,14 +93,18 @@ newstf.addEventListener("click", (e) => {
         const email = formpopup.querySelector("#email").value;
         const tel = formpopup.querySelector("#tel").value;
         const exp=[];
-        const verfyemail= /^[\w.-]+@[\w.-]+\.\w{2,}$/;
+        const verfyemail=/^[a-zA-Z0-9_%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
         const telverfy=/^0[5-7]\d{8}$/;
-        const imgverfy=/(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))/i;
+        
 
         if(!nom || !role || !pic || !email || !tel){
             alert("you have to fill all the form !!");
             return;
         }
+        // if(workers.some(w=>w.nom===nom)){
+        //     alert("this name already exist !!");
+        //     return;
+        // }
 
         if(!verfyemail.test(email)){
             alert("email invalide !!!");
@@ -108,11 +112,6 @@ newstf.addEventListener("click", (e) => {
         }
         if(!telverfy.test(tel)){
             alert("phone number invalide !!!");
-            return;
-        }
-
-        if(!imgverfy.test(pic)){
-            alert("picture invalide !!!");
             return;
         }
 
@@ -157,11 +156,11 @@ unwork.addEventListener("click", (e) => {
     const worker = workers.find(w => w.id === id);
     infopopup.innerHTML = ``;
     infopopup.innerHTML = `
-                <div class="popup-cont">
+                <div class="popup-cont">  
                     <div class="info-worker">
                         <img src="${worker.photo}" alt="worker picture">
-                        <h4>${worker.nom}</h4>
-                        <div class="show">
+                        <h3>${worker.nom}</h3>
+                        <div class="show" id="show">
                             <span><strong>Role :</strong> ${worker.role}</span>
                             <span><strong>Email :</strong> ${worker.email}</span>
                             <span><strong>Telephone :</strong> ${worker.tel}</span>
@@ -171,6 +170,22 @@ unwork.addEventListener("click", (e) => {
                 </div>
                 `;
     document.body.appendChild(infopopup);
+    if(worker.experience.length!==0){
+        const expaff= document.createElement("div");
+        expaff.id='exp';
+        worker.experience.forEach((e, index) => {
+        expaff.innerHTML += `
+            <span><strong>Experience ${index + 1}</strong></span>
+            <span>Date début : ${e.d}</span>
+            <span>Date fin : ${e.f}</span>
+        `;
+    });
+
+    document.querySelector("#show").appendChild(expaff);
+
+        document.querySelector("#show").appendChild(expaff);
+    }
+
     infopopup.querySelector(".close").addEventListener("click", () => {
         infopopup.remove();
     })
@@ -264,7 +279,15 @@ function organiser (){
     const salle =["conference", "reception", "archive", "securite", "personnel", "serveur"];
     salle.forEach(s=>{
         const list = document.querySelector(`#worker-${s}`);
+        const empty=document.querySelector(`.worker-${s}`)
         list.innerHTML="";
+        //  here is the problem
+        const vide = workers.some(w=>w.loc===s);
+        if(!vide){
+            empty.style.backgroundColor="rgba(231, 76, 60, 0.5)";
+        }else{
+            empty.style.background="";
+        }
     })
     workers.forEach(ele => {
         if(ele.loc!=="free"){
