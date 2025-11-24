@@ -51,7 +51,7 @@ newstf.addEventListener("click", (e) => {
                     </div>
                     <div class="inputs">
                         <label for="tel">Tel :</label>
-                        <input type="text" id="tel" placeholder="+2126XXXXXXXXX">
+                        <input type="text" id="tel" placeholder="06XXXXXXXXX">
                     </div>
             </form>
             <div class="btn-s"> 
