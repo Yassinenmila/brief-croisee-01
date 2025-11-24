@@ -1,12 +1,7 @@
 const unwork = document.querySelector("#un-staff");
 const newstf = document.querySelector("#add-staff");
 const workers = JSON.parse(localStorage.getItem("workers")) || [];
-const reception=3;
-const conf=4;
-const pers=5;
-const sct=2;
-const arc=2;
-const srv=1;
+
 if (!workers.some(w => w.loc === "free")) {
     unwork.innerHTML = `
     <p style="color:gray" id="message">No Workers Added</p>
@@ -16,7 +11,6 @@ if (!workers.some(w => w.loc === "free")) {
     organiser();
 }
 
-// ajoutement des workers dans un tableau des object contenent des information
 newstf.addEventListener("click", (e) => {
     e.preventDefault();
     const formpopup = document.createElement('div');
@@ -81,6 +75,9 @@ newstf.addEventListener("click", (e) => {
             const ctn = formpopup.querySelector("form");
             ctn.appendChild(exper);
         })
+
+    // ajouter les employer
+
     formpopup.querySelector("#submit").addEventListener("click", (e) => {
         e.preventDefault();
         const nom = formpopup.querySelector("#name").value;
@@ -97,10 +94,6 @@ newstf.addEventListener("click", (e) => {
             alert("you have to fill all the form !!");
             return;
         }
-        // if(workers.some(w=>w.nom===nom)){
-        //     alert("this name already exist !!");
-        //     return;
-        // }
 
         if(!verfyemail.test(email)){
             alert("email invalide !!!");
@@ -111,7 +104,7 @@ newstf.addEventListener("click", (e) => {
             return;
         }
 
-        const allexp=formpopup.querySelectorAll(".exper")
+        const allexp=formpopup.querySelectorAll(".exper");
         for (let i = 0; i < allexp.length; i++) {
             const e = allexp[i];
             const d= e.querySelector(".date1").value;
@@ -143,7 +136,7 @@ newstf.addEventListener("click", (e) => {
         formpopup.remove();
     })
 })
-// info afficher d'un worker clicker dessus en format de popup
+
 unwork.addEventListener("click", (e) => {
     const cart = e.target.closest('.profil');
     const infopopup = document.createElement('div');
@@ -276,9 +269,8 @@ function organiser (){
     const salle =["conference", "reception", "archive", "securite", "personnel", "serveur"];
     salle.forEach(s=>{
         const list = document.querySelector(`#worker-${s}`);
-        
         list.innerHTML="";
-        //  hnaya kayn mochkil 
+         
     })
     const svide = ["reception", "archive", "securite","serveur"];
     svide.forEach(s=>{
@@ -313,7 +305,7 @@ document.addEventListener("click", (e) => {
     if (e.target.classList.contains("adding")) {
         const card = e.target.closest('.profil');
         const id = card.dataset.id;
-        const salle = card.closest('.popup').dataset.salle; // Salle stockée dans popup
+        const salle = card.closest('.popup').dataset.salle; 
         const worker = workers.find(w => w.id == id);
 
         const liste = document.querySelector(`#worker-${salle}`);
@@ -328,11 +320,9 @@ document.addEventListener("click", (e) => {
         organiser();
         aff();
 
-        // Fermer popup
         e.target.closest(".popup").remove();
     }
 
-    // Supprimer un worker d’une salle
     if (e.target.classList.contains("btnns")) {
         const card = e.target.closest('.wker');
         const id = card.dataset.id;
