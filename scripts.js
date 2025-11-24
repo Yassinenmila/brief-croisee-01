@@ -112,7 +112,8 @@ newstf.addEventListener("click", (e) => {
         }
 
         const allexp=formpopup.querySelectorAll(".exper")
-        for (let e of allexp) {
+        for (let i = 0; i < allexp.length; i++) {
+            const e = allexp[i];
             const d= e.querySelector(".date1").value;
             const f= e.querySelector(".date2").value;
             if(!d||!f){
@@ -277,7 +278,7 @@ function organiser (){
         const list = document.querySelector(`#worker-${s}`);
         
         list.innerHTML="";
-        //  here is the problem
+        //  hnaya kayn mochkil 
     })
     const svide = ["reception", "archive", "securite","serveur"];
     svide.forEach(s=>{
